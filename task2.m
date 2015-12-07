@@ -6,13 +6,19 @@ n = length(r);
 [f,bin] = hist(r);    % bin and freq
 
 figure
-plot(r)
-% v = max(w)
+subplot(2,1,1); plot(w)
+subplot(2,1,2); plot(r)
+
+v = max(w)
 
 % Compute statistics
 sig = std(r);
 mu = mean(r);
 pdf = normpdf(bin,mu, sig);
+A  = mu*(w'*w)/(n*sig^2)
+E = r'*r;
+S = A^2*E/sig^2;
+figure(6); plot(10*log(S))  
 
 % Compute threshholds 
 for x = 1:4     % log constant for Pf
@@ -20,6 +26,9 @@ for x = 1:4     % log constant for Pf
     v0(x) = sqrt(2)*erfcinv(2*Pf(x));   % find threshhold v0 from Pf
     total(x) = sum(r(:)>v0(x));     % find instances in rcvd signal > than v0
 end
+
+
+
 Pd = total./n; % compute probabilities for each v0     
 
 % Pf vs v0
