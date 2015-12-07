@@ -17,6 +17,7 @@ mu = mean(r);
 pdf = normpdf(bin,mu, sig);
 A  = mu*(w'*w)/(n*sig^2)
 E = r'*r;
+% Compute SNR
 S = A^2*E/sig^2;
 figure(6); plot(10*log(S))  
 
