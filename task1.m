@@ -1,21 +1,27 @@
-close all
+clear all; close all; clc;
+
 load('SGroup5.mat')
 r = StudentData.rcvd;
-[f,bin] = hist(r);    % bin and freq
+w = StudentData.refnoise;
 
-% Compute statistics
+
+% Compute statistics'
+[f,bin] = hist(r);    % bin and freq
 sig = std(r);
 mu = mean(r);
 pdf = normpdf(bin,mu, sig);
 
+% Plot
 dx = diff(bin(1:2));    % bin width
 bar(bin,f/sum(f*dx)); hold on % normalized hist
-plot(bin,pdf,'r');  % plot theoretical pdf
+plot(bin,pdf);  % plot theoretical pdf
 
 % Preform gof test on theoretical pdf
 [h,p,st] = chi2gof(r)
 
-
+% Q value for recieved signal and noise ref
+Q = 0.5*erfc(r/sqrt(2));
+Qn = 0.5*erfc(w/sqrt(2));
 %% OUTPUT
 % h =  0
 % 

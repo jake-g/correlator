@@ -1,41 +1,19 @@
-close all
-load('SGroup5.mat')
-r = StudentData.rcvd;
-w = StudentData.refnoise;
-n = length(r);
-[f,bin] = hist(r);    % bin and freq
+clear all; close all; clc;
 
+% Plot detection vs SNR
 figure
-subplot(2,1,1); plot(w)
-subplot(2,1,2); plot(r)
+S = 1:100;  % snr
+Pfa = 10.^-(1:4);   % false alarm
+v0 = sqrt(2)*erfcinv(2*Pfa); % threshhold at false alarm
+for i = 1:length(Pfa)
+    Pd = 0.5*erfc((v0(i) - sqrt(S))/sqrt(2)); % find detection prob
+    semilogx(S, Pd);  hold on
 
-v = max(w)
-
-% Compute statistics
-sig = std(r);
-mu = mean(r);
-pdf = normpdf(bin,mu, sig);
-A  = mu*(w'*w)/(n*sig^2)
-E = r'*r;
-% Compute SNR
-S = A^2*E/sig^2;
-figure(6); plot(10*log(S))  
-
-% Compute threshholds 
-for x = 1:4     % log constant for Pf
-    Pf(x) = 10^(-1*x);  % compute Pf
-    v0(x) = sqrt(2)*erfcinv(2*Pf(x));   % find threshhold v0 from Pf
-    total(x) = sum(r(:)>v0(x));     % find instances in rcvd signal > than v0
 end
 
-
-
-Pd = total./n; % compute probabilities for each v0     
-
-% Pf vs v0
-figure
-plot(v0, Pf, 'r'); hold on;
-plot(v0, Pd, 'b');
-% Increasing the threshold, v0, will lower the chances of false alarm and
-%  detection since the noise is Gaussian. At a high enough threshold, only 
-% the noise outliers will trigger a false alarm
+% Plot Properties
+colormap('winter')
+title('Detection vs SNR')
+xlabel('SNR (db)')
+ylabel('Detection Probability')
+legend('Pfa = 0.1', 'Pfa = 0.01', 'Pfa = 0.001', 'Pfa = 0.0001', 'location', 'southeast')
