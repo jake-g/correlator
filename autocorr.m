@@ -1,9 +1,9 @@
-function [ Rxx, peak, sidelobe ] = autocorr( x )
+function [ Rxx, peak, peak_side, mean_side ] = autocorr( x )
 %autocorr finds autocore vector and sidlobe amplitude
-    x = -(-1).^x;    % Make 0 into 1
     Rxx = xcorr(x);  % correlate x with x
     R_sort = sort(abs(Rxx));    % sort to find second max
-    sidelobe = R_sort(end - 1)
-    peak = R_sort(end)
+    peak_side = R_sort(end - 1);
+    peak = R_sort(end);
+    mean_side = (sum(R_sort) - peak)/length(R_sort);
 end
 

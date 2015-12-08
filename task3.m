@@ -1,4 +1,4 @@
-clear all; close all: clc
+clear all; close all; clc
 
 % Given Codes
 x{1} = [0 1 0 1 0 1 0 1 0 1 0];
@@ -10,7 +10,9 @@ figure
 sidelobes = zeros(1, length(x));
 for i = 1:length(x)
     subplot(length(x),1,i);
-    [Rxx, peak, sidelobe] = autocorr(x{i});
+    clear Rxx
+    x{i} = -(-1).^x{i};    % Make 0 into 1
+    [Rxx, peak, sidelobe, ~] = autocorr(x{i});
     plot(Rxx, 'color',rand(1,3)); hold on
     sidelobes(i) = sidelobe;
     title(sprintf('Code: %i',i));
