@@ -4,6 +4,6 @@ function [ Rxx, peak, peak_side, mean_side ] = autocorr( x )
     R_sort = sort(abs(Rxx));    % sort to find second max
     peak_side = R_sort(end - 1);
     peak = R_sort(end);
-    mean_side = (sum(R_sort) - peak)/length(R_sort);
+    mean_side = (sum(R_sort) - peak)/(length(R_sort)-1);
 end
 
