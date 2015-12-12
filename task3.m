@@ -13,8 +13,10 @@ for i = 1:length(x)
     clear Rxx
     x{i} = -(-1).^x{i};    % Make 0 into -1
     [Rxx, peak, sidelobe, ~] = autocorr(x{i});
-    plot(Rxx, 'color',rand(1,3)); hold on
+    plot(Rxx, 'color',rand(1,3)); hold on; grid on;
     sidelobes(i) = sidelobe;
     title(sprintf('Code: %i',i));
+    xlabel('Sample')
+    ylabel('Level')
 end
 % Barker codes are good because the sidelobes are minimal

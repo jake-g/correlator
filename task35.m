@@ -17,6 +17,5 @@ for i = 1:length(codes)
     % Record Statistics
     code_stats(i, :) = [peak, peak_side, mean_side];
     code_db = 20*log10(code_stats);
-    soundsc(Rxx)
 
 end
