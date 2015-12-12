@@ -14,6 +14,6 @@ end
 % Plot Properties
 colormap('winter')
 title('Detection vs SNR')
-xlabel('SNR (db)')
+xlabel('SNR (dB)')
 ylabel('Detection Probability')
 legend('Pfa = 0.1', 'Pfa = 0.01', 'Pfa = 0.001', 'Pfa = 0.0001', 'location', 'southeast')

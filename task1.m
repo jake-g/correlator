@@ -17,7 +17,7 @@ end
 v = V_RV / std(V_RV);
 
 % Compute statistics'
-[f,bin] = hist(v);    % bin and freq
+[f,bin] = hist(v, 25);    % bin and freq
 sig = std(v);
 mu = mean(v);
 pdf = normpdf(bin,mu, sig);
