@@ -1,37 +1,38 @@
-clear all; close all; clc;
+% EE 416 project - Task 1
+clc;close;clear;
 
-load('SGroup5.mat')
-r = StudentData.rcvd;
-w = StudentData.refnoise;
+s = barker(13);
+k = 1; % arbitrary scalar
+h = k * s;
 
+Nt = 1e3;
+V_RV = zeros(Nt, 1);
+for i=1:Nt
+    w = randn(length(s),1);
+    r = s + w;
+    V = h' * r;
+    V_RV(i) = V;
+end
+
+v = V_RV / std(V_RV);
 
 % Compute statistics'
-[f,bin] = hist(r);    % bin and freq
-sig = std(r);
-mu = mean(r);
+[f,bin] = hist(v);    % bin and freq
+sig = std(v);
+mu = mean(v);
 pdf = normpdf(bin,mu, sig);
 
 % Plot
 dx = diff(bin(1:2));    % bin width
 bar(bin,f/sum(f*dx)); hold on % normalized hist
 plot(bin,pdf);  % plot theoretical pdf
+title('Histogram for v = V_R_V / std(V_R_V)');
+xlabel('V_R_V');
+ylabel('Frequency');
 
 % Preform gof test on theoretical pdf
-[h,p,st] = chi2gof(r)
+[h,p,st] = chi2gof(v)
 
 % Q value for recieved signal and noise ref
 Q = 0.5*erfc(r/sqrt(2));
 Qn = 0.5*erfc(w/sqrt(2));
-%% OUTPUT
-% h =  0
-% 
-% 
-% p = 6.9278e-01
-% 
-% 
-% st = 
-%     chi2stat: 3.8809e+00
-%           df: 6
-%        edges: [-6.1397e+00 -3.7330e+00 -2.5296e+00 -1.3263e+00 -1.2294e-01 1.0804e+00 2.2838e+00 3.4871e+00 4.6905e+00 5.8938e+00]
-%            O: [23 53 151 211 252 175 98 28 9]
-%            E: [2.1883e+01 6.0615e+01 1.4095e+02 2.2375e+02 2.4254e+02 1.7954e+02 9.0737e+01 3.1300e+01 8.6871e+00]
