@@ -9,6 +9,7 @@ table = [Pfa' v0']; % for report
 % v0 vs Pfa plot
 figure
 plot(v0,Pfa, 'r')
+
 % Plot Properties
 title('P_f_a vs v_0')
 xlabel('Threshold')

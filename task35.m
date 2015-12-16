@@ -1,7 +1,7 @@
 clear all; close all; clc
 
 codes = [2 3 4 5 7 11 13];
-barker13 = barker(11);
+barker13 = barker(13);
 code_stats = zeros(length(codes), 3);
 for i = 1:length(codes)
     % Combines the codes  
@@ -16,6 +16,6 @@ for i = 1:length(codes)
     
     % Record Statistics
     code_stats(i, :) = [peak, peak_side, mean_side];
-    code_db = 20*log10(code_stats);
+    code_db = 10*log10(code_stats);
 
 end
