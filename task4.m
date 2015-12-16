@@ -3,7 +3,7 @@ clear all; close all
 % Get results from task 2
 run('task2.m');
 run('group0_ans.m');
-load('SGroup0.mat')
+load('SGroup5.mat')
 
 r = StudentData.rcvd;
 w = StudentData.refnoise;
