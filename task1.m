@@ -48,7 +48,7 @@ title('Histogram for v, where v = V_R_V / std(V_R_V)');
 xlabel('v');
 ylabel('Frequency');
 
-%------- chi-squared test to check normality -----
+% chi-squared test to check normality
 % Perform gof test on theoretical pdf
 [h,p,st] = chi2gof(v)
 
